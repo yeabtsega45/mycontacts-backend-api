@@ -8,10 +8,6 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yeabtsega45/mycontacts-backend-api.git"
-  },
   "author": "Yeabtsega Yeshidnber",
   "license": "ISC",
   "bugs": {
