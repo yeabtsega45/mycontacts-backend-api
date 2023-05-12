@@ -2,4 +2,8 @@ const getContact = (req, res) => {
   res.status(200).json({ message: "get all contacts" });
 };
 
-module.exports = { getContact };
+const createContact = (req, res) => {
+  res.status(200).json({ message: "create contact" });
+};
+
+module.exports = { getContact, createContact };
