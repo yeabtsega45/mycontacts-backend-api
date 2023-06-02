@@ -26,7 +26,6 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("user data is not valid");
   }
-  res.json({ message: "Register the user" });
 });
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -38,16 +37,22 @@ const loginUser = asyncHandler(async (req, res) => {
   const user = await User.find({ email });
   //compare password with hashed password
   if (user && (await bcrypt.compare(password, user.password))) {
-    const accessToken = jwt.sign({
-      user: {
-        username: user.username,
-        email: user.email,
-        id: user.id,
+    const accessToken = jwt.sign(
+      {
+        user: {
+          username: user.username,
+          email: user.email,
+          id: user.id,
+        },
       },
-    });
+      process.env.ACCESS_TOKEN_SECRET
+      // { expiresIn: "1m" }
+    );
     res.status(200).json(accessToken);
+  } else {
+    res.status(401);
+    throw new Error("email or password not valid");
   }
-  res.json({ message: "login user" });
 });
 
 const currentUser = asyncHandler(async (req, res) => {
