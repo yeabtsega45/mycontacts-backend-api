@@ -38,6 +38,13 @@ const loginUser = asyncHandler(async (req, res) => {
   const user = await User.find({ email });
   //compare password with hashed password
   if (user && (await bcrypt.compare(password, user.password))) {
+    const accessToken = jwt.sign({
+      user: {
+        username: user.username,
+        email: user.email,
+        id: user.id,
+      },
+    });
     res.status(200).json(accessToken);
   }
   res.json({ message: "login user" });
